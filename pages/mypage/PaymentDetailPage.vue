@@ -1,0 +1,2 @@
+<template><div class="container" style="padding:40px 0"><RouterLink to="/my/payments">← 결제 내역</RouterLink><h2 style="margin:20px 0">결제 상세</h2><p style="color:#64748b">결제 상세 정보가 여기에 표시됩니다.</p></div></template>
+<script setup>import { RouterLink } from 'vue-router'</script>

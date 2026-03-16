@@ -1,0 +1,112 @@
+/* ══════════════════════════════════════════
+   디자인 토큰 — 디자이너 시안 확정 후 여기만 수정
+   피그마 시안 → Claude → 이 파일 업데이트
+   ══════════════════════════════════════════ */
+
+:root {
+  /* ── 컬러 (임시값 — 피그마 확정 후 교체) */
+  --color-primary:       #1A3A5C;
+  --color-primary-light: #2E6DA4;
+  --color-primary-dark:  #0F2340;
+  --color-accent:        #F0A500;
+  --color-accent-light:  #FFD166;
+
+  --color-success:       #27AE60;
+  --color-warning:       #F39C12;
+  --color-error:         #E74C3C;
+  --color-info:          #3498DB;
+
+  --color-text-primary:  #1A1A2E;
+  --color-text-secondary:#64748B;
+  --color-text-disabled: #B0BAC5;
+
+  --color-bg:            #FFFFFF;
+  --color-bg-subtle:     #F7F9FC;
+  --color-border:        #E2E8F0;
+  --color-border-focus:  #2E6DA4;
+
+  /* ── 타이포그래피 */
+  --font-family:         'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-size-xs:        12px;
+  --font-size-sm:        14px;
+  --font-size-base:      16px;
+  --font-size-lg:        18px;
+  --font-size-xl:        20px;
+  --font-size-2xl:       24px;
+  --font-size-3xl:       30px;
+  --font-size-4xl:       36px;
+
+  --font-weight-regular: 400;
+  --font-weight-medium:  500;
+  --font-weight-semibold:600;
+  --font-weight-bold:    700;
+
+  --line-height-tight:   1.25;
+  --line-height-base:    1.6;
+  --line-height-loose:   1.8;
+
+  /* ── 간격 (8px 그리드) */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+
+  /* ── 레이아웃 */
+  --container-max:       1200px;
+  --container-padding:   var(--space-6);
+
+  /* ── 테두리 */
+  --radius-sm:  4px;
+  --radius-md:  8px;
+  --radius-lg:  12px;
+  --radius-xl:  16px;
+  --radius-full:9999px;
+
+  /* ── 그림자 */
+  --shadow-sm:  0 1px 3px rgba(0,0,0,.08);
+  --shadow-md:  0 4px 12px rgba(0,0,0,.10);
+  --shadow-lg:  0 8px 24px rgba(0,0,0,.12);
+  --shadow-xl:  0 16px 40px rgba(0,0,0,.14);
+
+  /* ── 전환 */
+  --transition-fast:   150ms ease;
+  --transition-base:   250ms ease;
+  --transition-slow:   400ms ease;
+
+  /* ── z-index */
+  --z-dropdown:  100;
+  --z-sticky:    200;
+  --z-overlay:   300;
+  --z-modal:     400;
+  --z-toast:     500;
+}
+
+/* ── 기본 리셋 */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  font-size:   var(--font-size-base);
+  color:       var(--color-text-primary);
+  background:  var(--color-bg);
+  line-height: var(--line-height-base);
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+button { cursor: pointer; font-family: var(--font-family); }
+
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
