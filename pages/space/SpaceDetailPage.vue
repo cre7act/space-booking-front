@@ -1,6 +1,6 @@
 <template>
   <div class="detail-page" v-if="!loading">
-
+    
     <!-- 사진 갤러리 -->
     <div class="gallery">
       <img :src="activePhoto" class="gallery__main" />
