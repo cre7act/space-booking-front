@@ -90,6 +90,31 @@
               <input v-model="bookingDate" type="date" :min="today" />
             </div>
 
+            <!-- 추가 옵션 텍스트 필드 3개 -->
+            <div class="booking-panel__field">
+              <label>추가 옵션</label>
+              <div class="extra-fields">
+                <input
+                  v-model="extraOption1"
+                  type="text"
+                  class="extra-field"
+                  placeholder="옵션 1을 입력하세요"
+                />
+                <input
+                  v-model="extraOption2"
+                  type="text"
+                  class="extra-field"
+                  placeholder="옵션 2를 입력하세요"
+                />
+                <input
+                  v-model="extraOption3"
+                  type="text"
+                  class="extra-field"
+                  placeholder="옵션 3을 입력하세요"
+                />
+              </div>
+            </div>
+
             <!-- 인원 -->
             <div class="booking-panel__field">
               <label>인원</label>
@@ -148,6 +173,9 @@ const bookingDate  = ref('')
 const headcount    = ref(1)
 const isWished     = ref(false)
 const today        = new Date().toISOString().split('T')[0]
+const extraOption1 = ref('')
+const extraOption2 = ref('')
+const extraOption3 = ref('')
 
 onMounted(async () => {
   const res = await spaceApi.getDetail(route.params.id)
@@ -232,6 +260,26 @@ function formatPrice(p) { return p ? Number(p).toLocaleString('ko-KR') : '0' }
 .booking-panel__btn { width:100%; padding:var(--space-4); background:var(--color-primary); color:white; border:none; border-radius:var(--radius-md); font-size:var(--font-size-base); font-weight:var(--font-weight-bold); margin-bottom:var(--space-3); }
 .booking-panel__btn:disabled { opacity:.5; cursor:not-allowed; }
 .booking-panel__wish { width:100%; padding:var(--space-3); background:white; color:var(--color-primary); border:1px solid var(--color-primary); border-radius:var(--radius-md); font-size:var(--font-size-sm); }
+
+/* 추가 옵션 텍스트 필드 */
+.extra-fields { display:flex; flex-direction:column; gap:var(--space-2); }
+.extra-field {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-family: var(--font-family);
+  color: var(--color-text-primary);
+  background: white;
+  box-sizing: border-box;
+  transition: border-color var(--transition-fast);
+}
+.extra-field:focus {
+  outline: none;
+  border-color: var(--color-border-focus);
+}
+.extra-field::placeholder { color: var(--color-text-disabled); }
 
 .loading-wrap { display:flex; justify-content:center; align-items:center; height:400px; }
 .spinner { width:40px; height:40px; border:3px solid var(--color-border); border-top-color:var(--color-primary); border-radius:50%; animation:spin .8s linear infinite; }
