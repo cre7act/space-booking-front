@@ -2,6 +2,8 @@
 // _common.scss  —  글로벌 공통 클래스
 // main.scss 에서 @use 로 포함됨
 // ══════════════════════════════════════════
+@use 'variables' as *;
+@use 'mixins'    as *;
 
 // ── 스켈레톤
 .skeleton {

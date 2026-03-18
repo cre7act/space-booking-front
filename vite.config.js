@@ -14,10 +14,11 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `
-          @use "@/assets/styles/_variables" as *;
-          @use "@/assets/styles/_mixins"    as *;
-        `
+        // loadPaths: SCSS 가 'variables', 'mixins' 를 경로 없이 찾을 수 있게 설정
+        loadPaths: [resolve(__dirname, 'src/assets/styles')],
+        // additionalData: Vue 컴포넌트 <style lang="scss"> 에 자동 주입
+        // → main.scss 는 직접 @use 하므로 여기선 컴포넌트 전용
+        additionalData: `@use 'variables' as *;\n@use 'mixins' as *;\n`
       }
     }
   },
