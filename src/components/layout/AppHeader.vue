@@ -48,13 +48,13 @@
     <!-- 하단 카테고리 네비 -->
     <div class="header__nav-bar">
       <div class="container header__nav-inner">
-        <RouterLink to="/spaces"                          class="nav-item">전체</RouterLink>
-        <RouterLink to="/spaces?category=스터디룸"         class="nav-item">스터디룸</RouterLink>
-        <RouterLink to="/spaces?category=촬영스튜디오"     class="nav-item">촬영스튜디오</RouterLink>
-        <RouterLink to="/spaces?category=연습실"           class="nav-item">연습실</RouterLink>
-        <RouterLink to="/spaces?category=공유오피스"       class="nav-item">공유오피스</RouterLink>
-        <RouterLink to="/spaces?category=세미나실"         class="nav-item">세미나실</RouterLink>
-        <RouterLink to="/events"                          class="nav-item">이벤트</RouterLink>
+        <RouterLink to="/spaces"                      :class="['nav-item', { 'is-active': isActive('/spaces') }]">전체</RouterLink>
+        <RouterLink to="/spaces?category=스터디룸"     :class="['nav-item', { 'is-active': isActive('/spaces?category=스터디룸') }]">스터디룸</RouterLink>
+        <RouterLink to="/spaces?category=촬영스튜디오" :class="['nav-item', { 'is-active': isActive('/spaces?category=촬영스튜디오') }]">촬영스튜디오</RouterLink>
+        <RouterLink to="/spaces?category=연습실"       :class="['nav-item', { 'is-active': isActive('/spaces?category=연습실') }]">연습실</RouterLink>
+        <RouterLink to="/spaces?category=공유오피스"   :class="['nav-item', { 'is-active': isActive('/spaces?category=공유오피스') }]">공유오피스</RouterLink>
+        <RouterLink to="/spaces?category=세미나실"     :class="['nav-item', { 'is-active': isActive('/spaces?category=세미나실') }]">세미나실</RouterLink>
+        <RouterLink to="/events"                      :class="['nav-item', { 'is-active': isActive('/events') }]">이벤트</RouterLink>
       </div>
     </div>
   </header>
@@ -62,11 +62,12 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import { RouterLink, useRouter } from 'vue-router'
+import { RouterLink, useRouter, useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { useCartStore } from '@/stores/cart'
 
 const router        = useRouter()
+const route         = useRoute()
 const authStore     = useAuthStore()
 const cartStore     = useCartStore()
 const searchKeyword = ref('')
@@ -74,6 +75,18 @@ const searchKeyword = ref('')
 const isLoggedIn = computed(() => authStore.isLoggedIn)
 const userName   = computed(() => authStore.userName)
 const cartCount  = computed(() => cartStore.count)
+
+// 쿼리 파라미터까지 정확히 비교하는 활성 상태 계산
+function isActive(to) {
+  const [path, queryStr] = to.split('?')
+  if (route.path !== path) return false
+  if (!queryStr) return !route.query.category   // 전체: 카테고리 없을 때만 활성
+  const params = new URLSearchParams(queryStr)
+  for (const [key, val] of params) {
+    if (route.query[key] !== val) return false
+  }
+  return true
+}
 
 function doSearch() {
   if (!searchKeyword.value.trim()) return
@@ -224,18 +237,23 @@ function doSearch() {
 }
 .header__nav-inner::-webkit-scrollbar { display: none; }
 .nav-item {
-  padding: 0 var(--space-4);
-  height: 44px;
-  display: flex; align-items: center;
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text-secondary);
-  white-space: nowrap;
+  padding:       0 var(--space-5);
+  height:        44px;
+  display:       flex;
+  align-items:   center;
+  font-size:     var(--font-size-base);   /* sm(14px) → base(16px) */
+  font-weight:   var(--font-weight-medium);
+  color:         var(--color-text-secondary);
+  white-space:   nowrap;
   border-bottom: 2px solid transparent;
-  transition: all var(--transition-fast);
+  transition:    all var(--transition-fast);
 }
-.nav-item:hover, .nav-item.router-link-active {
+.nav-item:hover {
   color: var(--color-primary);
+}
+.nav-item.is-active {
+  color:              var(--color-primary);
+  font-weight:        var(--font-weight-semibold);
   border-bottom-color: var(--color-primary);
 }
 </style>
