@@ -11,6 +11,17 @@ export default defineConfig({
     }
   },
 
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `
+          @use "@/assets/styles/_variables" as *;
+          @use "@/assets/styles/_mixins"    as *;
+        `
+      }
+    }
+  },
+
   server: {
     port: 5173,
 

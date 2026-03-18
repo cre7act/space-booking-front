@@ -1,0 +1,192 @@
+// ══════════════════════════════════════════
+// _mixins.scss  —  공통 믹스인
+// vite.config.js additionalData 로 자동 주입됨
+// ══════════════════════════════════════════
+
+// ── 레이아웃
+@mixin mx-flex($d: row, $h: flex-start, $v: stretch, $w: nowrap) {
+  display:         flex;
+  flex-direction:  $d;
+  justify-content: $h;
+  align-items:     $v;
+  flex-wrap:       $w;
+}
+
+@mixin mx-center {
+  display:         flex;
+  justify-content: center;
+  align-items:     center;
+}
+
+@mixin mx-between {
+  display:         flex;
+  justify-content: space-between;
+  align-items:     center;
+}
+
+@mixin mx-grid($cols: 4, $gap: $sp-5) {
+  display:               grid;
+  grid-template-columns: repeat($cols, 1fr);
+  gap:                   $gap;
+}
+
+// ── 반응형
+@mixin mx-mobile {
+  @media (max-width: #{$bp-mobile}) {
+    @content;
+  }
+}
+
+@mixin mx-tablet {
+  @media (max-width: #{$bp-tablet}) {
+    @content;
+  }
+}
+
+// ── 텍스트
+@mixin mx-truncate($lines: 1) {
+  @if $lines == 1 {
+    overflow:      hidden;
+    text-overflow: ellipsis;
+    white-space:   nowrap;
+  } @else {
+    display:            -webkit-box;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+    overflow:           hidden;
+  }
+}
+
+// ── 카드
+@mixin mx-card {
+  background:    $color-bg;
+  border-radius: $radius-lg;
+  box-shadow:    $shadow-md;
+  overflow:      hidden;
+  transition:    transform $transition-base, box-shadow $transition-base;
+}
+
+@mixin mx-card-hover {
+  &:hover {
+    transform:  translateY(-4px);
+    box-shadow: $shadow-lg;
+  }
+}
+
+// ── 버튼
+@mixin mx-btn($variant: primary) {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  gap:             $sp-2;
+  padding:         $sp-3 $sp-6;
+  border-radius:   $radius-md;
+  font-size:       $font-sm;
+  font-weight:     $fw-semibold;
+  border:          none;
+  cursor:          pointer;
+  transition:      all $transition-fast;
+  white-space:     nowrap;
+
+  @if $variant == primary {
+    background: $color-primary;
+    color:      #fff;
+    &:hover { background: $color-primary-light; }
+  } @else if $variant == outline {
+    background: transparent;
+    color:      $color-primary;
+    border:     1px solid $color-primary;
+    &:hover { background: $color-primary; color: #fff; }
+  } @else if $variant == ghost {
+    background: transparent;
+    color:      $color-text-secondary;
+    &:hover { background: $color-bg-subtle; color: $color-text-primary; }
+  } @else if $variant == accent {
+    background: $color-accent;
+    color:      #fff;
+    &:hover { background: $color-accent-light; }
+  }
+}
+
+// ── 인풋
+@mixin mx-input {
+  width:         100%;
+  padding:       $sp-3 $sp-4;
+  border:        1px solid $color-border;
+  border-radius: $radius-md;
+  font-size:     $font-base;
+  color:         $color-text-primary;
+  background:    $color-bg;
+  outline:       none;
+  transition:    border-color $transition-fast, box-shadow $transition-fast;
+
+  &:focus {
+    border-color: $color-border-focus;
+    box-shadow:   0 0 0 3px rgba($color-primary-light, .15);
+  }
+
+  &::placeholder { color: $color-text-disabled; }
+}
+
+// ── 뱃지
+@mixin mx-badge($bg: $color-primary, $color: #fff) {
+  display:       inline-block;
+  padding:       2px $sp-2;
+  background:    $bg;
+  color:         $color;
+  font-size:     10px;
+  font-weight:   $fw-bold;
+  border-radius: $radius-sm;
+  line-height:   1.4;
+}
+
+// ── 스켈레톤
+@mixin mx-skeleton {
+  background:      linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation:       shimmer 1.5s infinite;
+  border-radius:   $radius-md;
+
+  @keyframes shimmer {
+    0%   { background-position: -200% 0; }
+    100% { background-position:  200% 0; }
+  }
+}
+
+// ── 스크롤바 숨기기
+@mixin mx-scrollbar-hide {
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
+
+// ── 섹션 공통
+@mixin mx-section($bg: transparent) {
+  padding:    $sp-12 0;
+  background: $bg;
+}
+
+// ── 오버레이
+@mixin mx-overlay($opacity: .5) {
+  position:   absolute;
+  inset:      0;
+  background: rgba(0,0,0,$opacity);
+}
+
+// ── 비율 유지
+@mixin mx-aspect($ratio: 16/9) {
+  aspect-ratio: $ratio;
+  overflow:     hidden;
+
+  img, video {
+    width:      100%;
+    height:     100%;
+    object-fit: cover;
+  }
+}
+
+// ── 스티키 헤더
+@mixin mx-sticky($top: 0) {
+  position: sticky;
+  top:      $top;
+  z-index:  $z-sticky;
+}

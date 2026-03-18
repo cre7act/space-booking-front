@@ -1,0 +1,96 @@
+// ══════════════════════════════════════════
+// _common.scss  —  글로벌 공통 클래스
+// main.scss 에서 @use 로 포함됨
+// ══════════════════════════════════════════
+
+// ── 스켈레톤
+.skeleton {
+  @include mx-skeleton;
+  &--card  { height: 280px; }
+  &--line  { height: 16px; border-radius: $radius-full; }
+  &--title { height: 24px; width: 60%; border-radius: $radius-full; }
+  &--thumb { height: 200px; }
+}
+
+// ── 빈 상태
+.empty {
+  @include mx-center;
+  flex-direction: column;
+  gap:            $sp-4;
+  padding:        $sp-20 0;
+  color:          $color-text-secondary;
+  text-align:     center;
+
+  &__icon  { font-size: 48px; opacity: .4; }
+  &__title { font-size: $font-lg; font-weight: $fw-semibold; margin: 0; }
+  &__desc  { font-size: $font-sm; margin: 0; }
+}
+
+// ── 공간 그리드
+.space-grid {
+  display:               grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap:                   $sp-5;
+}
+
+// ── 섹션 헤더
+.section-header {
+  @include mx-between;
+  margin-bottom: $sp-6;
+}
+.section-title {
+  font-size:   $font-2xl;
+  font-weight: $fw-bold;
+  margin:      0;
+}
+.section-more {
+  font-size: $font-sm;
+  color:     $color-primary;
+
+  &:hover { text-decoration: underline; }
+}
+
+// ── 페이지 헤더
+.page-header {
+  padding:       $sp-8 0 $sp-6;
+  border-bottom: 1px solid $color-border;
+  margin-bottom: $sp-8;
+
+  &__title {
+    font-size:   $font-3xl;
+    font-weight: $fw-bold;
+    margin:      0 0 $sp-2;
+  }
+  &__desc {
+    font-size: $font-base;
+    color:     $color-text-secondary;
+    margin:    0;
+  }
+}
+
+// ── 뱃지
+.badge {
+  @include mx-badge;
+  &--primary { @include mx-badge($color-primary); }
+  &--accent  { @include mx-badge($color-accent); }
+  &--success { @include mx-badge($color-success); }
+  &--error   { @include mx-badge($color-error); }
+  &--gray    { @include mx-badge($color-bg-subtle, $color-text-secondary); }
+}
+
+// ── 로딩 스피너
+.spinner {
+  width:        32px;
+  height:       32px;
+  border:       3px solid $color-border;
+  border-top:   3px solid $color-primary;
+  border-radius: $radius-full;
+  animation:    spin .7s linear infinite;
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+}
+
+.loading-wrap {
+  @include mx-center;
+  padding: $sp-20 0;
+}
