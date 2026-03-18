@@ -1,13 +1,13 @@
 // ══════════════════════════════════════════
 // _common.scss  —  글로벌 공통 클래스
-// main.scss 에서 @use 로 포함됨
+// main.scss 에서 @import 로 포함됨
 // ══════════════════════════════════════════
-@use 'variables' as *;
-@use 'mixins'    as *;
+@import 'variables';
+@import 'mixins';
 
 // ── 스켈레톤
 .skeleton {
-  @include mx-skeleton;
+  @include skeleton;
   &--card  { height: 280px; }
   &--line  { height: 16px; border-radius: $radius-full; }
   &--title { height: 24px; width: 60%; border-radius: $radius-full; }
@@ -16,7 +16,7 @@
 
 // ── 빈 상태
 .empty {
-  @include mx-center;
+  @include center;
   flex-direction: column;
   gap:            $sp-4;
   padding:        $sp-20 0;
@@ -37,7 +37,7 @@
 
 // ── 섹션 헤더
 .section-header {
-  @include mx-between;
+  @include between;
   margin-bottom: $sp-6;
 }
 .section-title {
@@ -72,27 +72,27 @@
 
 // ── 뱃지
 .badge {
-  @include mx-badge;
-  &--primary { @include mx-badge($color-primary); }
-  &--accent  { @include mx-badge($color-accent); }
-  &--success { @include mx-badge($color-success); }
-  &--error   { @include mx-badge($color-error); }
-  &--gray    { @include mx-badge($color-bg-subtle, $color-text-secondary); }
+  @include badge;
+  &--primary { @include badge($color-primary); }
+  &--accent  { @include badge($color-accent); }
+  &--success { @include badge($color-success); }
+  &--error   { @include badge($color-error); }
+  &--gray    { @include badge($color-bg-subtle, $color-text-secondary); }
 }
 
 // ── 로딩 스피너
 .spinner {
-  width:        32px;
-  height:       32px;
-  border:       3px solid $color-border;
-  border-top:   3px solid $color-primary;
+  width:         32px;
+  height:        32px;
+  border:        3px solid $color-border;
+  border-top:    3px solid $color-primary;
   border-radius: $radius-full;
-  animation:    spin .7s linear infinite;
+  animation:     spin .7s linear infinite;
 
   @keyframes spin { to { transform: rotate(360deg); } }
 }
 
 .loading-wrap {
-  @include mx-center;
+  @include center;
   padding: $sp-20 0;
 }

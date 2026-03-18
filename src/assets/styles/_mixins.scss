@@ -1,11 +1,11 @@
 // ══════════════════════════════════════════
 // _mixins.scss  —  공통 믹스인
 // vite.config.js additionalData 로 자동 주입됨
-@use 'variables' as *;
 // ══════════════════════════════════════════
+@import 'variables';
 
 // ── 레이아웃
-@mixin mx-flex($d: row, $h: flex-start, $v: stretch, $w: nowrap) {
+@mixin flex($d: row, $h: flex-start, $v: stretch, $w: nowrap) {
   display:         flex;
   flex-direction:  $d;
   justify-content: $h;
@@ -13,39 +13,39 @@
   flex-wrap:       $w;
 }
 
-@mixin mx-center {
+@mixin center {
   display:         flex;
   justify-content: center;
   align-items:     center;
 }
 
-@mixin mx-between {
+@mixin between {
   display:         flex;
   justify-content: space-between;
   align-items:     center;
 }
 
-@mixin mx-grid($cols: 4, $gap: $sp-5) {
+@mixin grid($cols: 4, $gap: $sp-5) {
   display:               grid;
   grid-template-columns: repeat($cols, 1fr);
   gap:                   $gap;
 }
 
 // ── 반응형
-@mixin mx-mobile {
+@mixin mobile {
   @media (max-width: #{$bp-mobile}) {
     @content;
   }
 }
 
-@mixin mx-tablet {
+@mixin tablet {
   @media (max-width: #{$bp-tablet}) {
     @content;
   }
 }
 
-// ── 텍스트
-@mixin mx-truncate($lines: 1) {
+// ── 텍스트 말줄임
+@mixin truncate($lines: 1) {
   @if $lines == 1 {
     overflow:      hidden;
     text-overflow: ellipsis;
@@ -59,7 +59,7 @@
 }
 
 // ── 카드
-@mixin mx-card {
+@mixin card {
   background:    $color-bg;
   border-radius: $radius-lg;
   box-shadow:    $shadow-md;
@@ -67,7 +67,7 @@
   transition:    transform $transition-base, box-shadow $transition-base;
 }
 
-@mixin mx-card-hover {
+@mixin card-hover {
   &:hover {
     transform:  translateY(-4px);
     box-shadow: $shadow-lg;
@@ -75,7 +75,7 @@
 }
 
 // ── 버튼
-@mixin mx-btn($variant: primary) {
+@mixin btn($variant: primary) {
   display:         inline-flex;
   align-items:     center;
   justify-content: center;
@@ -110,7 +110,7 @@
 }
 
 // ── 인풋
-@mixin mx-input {
+@mixin input {
   width:         100%;
   padding:       $sp-3 $sp-4;
   border:        1px solid $color-border;
@@ -130,7 +130,7 @@
 }
 
 // ── 뱃지
-@mixin mx-badge($bg: $color-primary, $color: #fff) {
+@mixin badge($bg: $color-primary, $color: #fff) {
   display:       inline-block;
   padding:       2px $sp-2;
   background:    $bg;
@@ -142,7 +142,7 @@
 }
 
 // ── 스켈레톤
-@mixin mx-skeleton {
+@mixin skeleton {
   background:      linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
   background-size: 200% 100%;
   animation:       shimmer 1.5s infinite;
@@ -155,26 +155,26 @@
 }
 
 // ── 스크롤바 숨기기
-@mixin mx-scrollbar-hide {
+@mixin scrollbar-hide {
   scrollbar-width: none;
   &::-webkit-scrollbar { display: none; }
 }
 
 // ── 섹션 공통
-@mixin mx-section($bg: transparent) {
+@mixin section($bg: transparent) {
   padding:    $sp-12 0;
   background: $bg;
 }
 
 // ── 오버레이
-@mixin mx-overlay($opacity: .5) {
+@mixin overlay($opacity: .5) {
   position:   absolute;
   inset:      0;
-  background: rgba(0,0,0,$opacity);
+  background: rgba(0, 0, 0, $opacity);
 }
 
 // ── 비율 유지
-@mixin mx-aspect($ratio: 16/9) {
+@mixin aspect($ratio: 16/9) {
   aspect-ratio: $ratio;
   overflow:     hidden;
 
@@ -185,8 +185,8 @@
   }
 }
 
-// ── 스티키 헤더
-@mixin mx-sticky($top: 0) {
+// ── 스티키
+@mixin sticky($top: 0) {
   position: sticky;
   top:      $top;
   z-index:  $z-sticky;

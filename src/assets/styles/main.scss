@@ -3,9 +3,9 @@
 // src/main.js 에서 import 됨
 // ══════════════════════════════════════════
 
-// variables / mixins 는 vite.config.js additionalData 로 자동 주입됨
-// → 여기서 중복 선언하면 "already loaded" 에러 → 생략
-@use 'common';
+@import 'variables';
+@import 'mixins';
+@import 'common';
 
 // ── CSS Custom Properties (런타임 — JS에서도 접근 가능)
 :root {
