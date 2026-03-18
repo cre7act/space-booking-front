@@ -170,10 +170,10 @@ const currentSlide = ref(0)
 const transitioning = ref(true)
 let autoTimer = null
 
-// peek 캐러셀: 슬라이드 너비 72vw, 좌우 14vw 씩 이전/다음 슬라이드 노출
-const SLIDE_W  = 72   // vw
-const SLIDE_GAP = 16  // px
-const PEEK     = (100 - SLIDE_W) / 2  // 14vw
+// peek 캐러셀: 슬라이드 너비 64vw, 좌우 18vw 씩 이전/다음 슬라이드 노출
+const SLIDE_W  = 64   // vw
+const SLIDE_GAP = 24  // px
+const PEEK     = (100 - SLIDE_W) / 2  // 18vw
 
 const trackStyle = computed(() => ({
   transform:  `translateX(calc(${PEEK}vw - ${currentSlide.value} * (${SLIDE_W}vw + ${SLIDE_GAP}px)))`,
@@ -226,28 +226,30 @@ onUnmounted(() => clearInterval(autoTimer))
 .banner {
   position:   relative;
   overflow:   hidden;
-  height:     360px;
-  background: #1A3A5C;   /* 슬라이드 사이 틈 기본 배경 */
+  height:     280px;         /* 높이 축소 360 → 280 */
+  background: #f4f5f7;       /* 슬라이드 사이 틈 배경 */
+  padding:    16px 0;        /* 상하 여백으로 배너가 살짝 떠 보이는 효과 */
 }
 .banner__track {
   display:      flex;
-  gap:          16px;
+  gap:          24px;        /* 갭 16 → 24 */
   height:       100%;
   will-change:  transform;
 }
 .banner__slide {
-  flex-shrink:        0;
-  width:              72vw;   /* peek 캐러셀: 좌우 14vw 노출 */
-  height:             100%;
-  display:            flex;
-  align-items:        center;
-  justify-content:    space-between;
-  padding:            0 6% 0 8%;
-  position:           relative;
-  background-size:    cover;
+  flex-shrink:         0;
+  width:               64vw;  /* peek 캐러셀: 좌우 18vw 노출 */
+  height:              100%;
+  display:             flex;
+  align-items:         center;
+  justify-content:     space-between;
+  padding:             0 5% 0 7%;
+  position:            relative;
+  background-size:     cover;
   background-position: center;
-  border-radius:      12px;   /* 슬라이드 모서리 둥글게 */
-  overflow:           hidden;
+  border-radius:       16px;  /* 모서리 더 둥글게 */
+  overflow:            hidden;
+  box-shadow:          0 4px 20px rgba(0,0,0,.15);
 }
 .banner__slide-inner { flex: 1; z-index: 1; }
 .banner__label {
