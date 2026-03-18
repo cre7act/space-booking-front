@@ -170,8 +170,13 @@ const currentSlide = ref(0)
 const transitioning = ref(true)
 let autoTimer = null
 
+// peek 캐러셀: 슬라이드 너비 72vw, 좌우 14vw 씩 이전/다음 슬라이드 노출
+const SLIDE_W  = 72   // vw
+const SLIDE_GAP = 16  // px
+const PEEK     = (100 - SLIDE_W) / 2  // 14vw
+
 const trackStyle = computed(() => ({
-  transform: `translateX(-${currentSlide.value * 100}%)`,
+  transform:  `translateX(calc(${PEEK}vw - ${currentSlide.value} * (${SLIDE_W}vw + ${SLIDE_GAP}px)))`,
   transition: transitioning.value ? 'transform 0.5s ease' : 'none',
 }))
 
@@ -216,30 +221,33 @@ onMounted(async () => {
 onUnmounted(() => clearInterval(autoTimer))
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 /* ── 롤링 배너 */
 .banner {
-  position: relative;
-  overflow: hidden;
-  height: 360px;
-  background: #f0f0f0;
+  position:   relative;
+  overflow:   hidden;
+  height:     360px;
+  background: #1A3A5C;   /* 슬라이드 사이 틈 기본 배경 */
 }
 .banner__track {
-  display: flex;
-  height: 100%;
-  will-change: transform;
+  display:      flex;
+  gap:          16px;
+  height:       100%;
+  will-change:  transform;
 }
 .banner__slide {
-  flex-shrink: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 8% 0 10%;
-  position: relative;
-  background-size: cover;
+  flex-shrink:        0;
+  width:              72vw;   /* peek 캐러셀: 좌우 14vw 노출 */
+  height:             100%;
+  display:            flex;
+  align-items:        center;
+  justify-content:    space-between;
+  padding:            0 6% 0 8%;
+  position:           relative;
+  background-size:    cover;
   background-position: center;
+  border-radius:      12px;   /* 슬라이드 모서리 둥글게 */
+  overflow:           hidden;
 }
 .banner__slide-inner { flex: 1; z-index: 1; }
 .banner__label {
@@ -339,53 +347,56 @@ onUnmounted(() => clearInterval(autoTimer))
 
 /* ── 퀵 메뉴 */
 .quick-menu {
-  padding: var(--space-6) 0;
+  padding:       var(--space-8) 0;
   border-bottom: 1px solid var(--color-border);
 }
 .quick-menu__grid {
-  display: flex;
-  gap: var(--space-2);
-  overflow-x: auto;
-  scrollbar-width: none;
-  padding-bottom: var(--space-1);
+  display:         flex;
+  gap:             var(--space-4);
+  justify-content: center;   /* ← 센터 정렬 */
+  flex-wrap:       wrap;
 }
-.quick-menu__grid::-webkit-scrollbar { display: none; }
 .quick-item {
-  display: flex;
+  display:        flex;
   flex-direction: column;
-  align-items: center;
-  gap: var(--space-2);
-  min-width: 80px;
-  padding: var(--space-3);
-  border-radius: var(--radius-lg);
-  transition: background var(--transition-fast);
-  position: relative;
-  cursor: pointer;
+  align-items:    center;
+  gap:            var(--space-3);
+  min-width:      110px;
+  padding:        var(--space-4) var(--space-3);
+  border-radius:  var(--radius-lg);
+  transition:     background var(--transition-fast);
+  position:       relative;
+  cursor:         pointer;
+  text-decoration: none;
 }
 .quick-item:hover { background: var(--color-bg-subtle); }
 .quick-item__icon {
-  width: 56px; height: 56px;
-  border-radius: var(--radius-lg);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 26px;
+  width:         80px;
+  height:        80px;
+  border-radius: var(--radius-xl);
+  display:       flex;
+  align-items:   center;
+  justify-content: center;
+  font-size:     36px;   /* 아이콘(이모지) 크기 업 */
 }
 .quick-item span:not(.quick-item__badge) {
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text-primary);
+  font-size:   var(--font-size-sm);   /* xs → sm */
+  font-weight: var(--font-weight-semibold);
+  color:       var(--color-text-primary);
   white-space: nowrap;
 }
 .quick-item__badge {
-  position: absolute;
-  top: var(--space-2); right: var(--space-2);
-  font-size: 9px;
-  font-weight: bold;
-  padding: 1px 5px;
+  position:     absolute;
+  top:          var(--space-2);
+  right:        var(--space-2);
+  font-size:    10px;
+  font-weight:  bold;
+  padding:      2px 6px;
   border-radius: var(--radius-sm);
-  line-height: 1.4;
+  line-height:  1.4;
 }
 .badge--blue { background: var(--color-primary); color: white; }
-.badge--pink { background: #E91E63; color: white; }
+.badge--pink { background: #E91E63;              color: white; }
 
 /* ── 섹션 */
 .home__section { padding: var(--space-12) 0; }
