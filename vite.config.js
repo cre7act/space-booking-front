@@ -14,11 +14,15 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        // loadPaths: SCSS 가 'variables', 'mixins' 를 경로 없이 찾을 수 있게 설정
-        loadPaths: [resolve(__dirname, 'src/assets/styles')],
-        // additionalData: Vue 컴포넌트 <style lang="scss"> 에 자동 주입
-        // → main.scss 는 직접 @use 하므로 여기선 컴포넌트 전용
-        additionalData: `@use 'variables' as *;\n@use 'mixins' as *;\n`
+        // 절대 경로로 주입 → @/ 별칭 없이 어디서든 변수/믹스인 사용 가능
+        additionalData: (content, filename) => {
+          const scssDir = resolve(__dirname, 'src/assets/styles').replace(/\\/g, '/')
+          // _variables, _mixins 자기 자신에겐 주입 생략 (순환 방지)
+          if (filename.includes('_variables') || filename.includes('_mixins')) {
+            return content
+          }
+          return `@import "${scssDir}/variables";\n@import "${scssDir}/mixins";\n${content}`
+        }
       }
     }
   },
